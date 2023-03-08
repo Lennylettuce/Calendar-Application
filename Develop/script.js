@@ -4,22 +4,28 @@
 $(function () {
   
   // TODO: Add code to display the current date in the header of the page.(DONE)
-  var today = dayjs();
+  var today = dayjs().hour(23);
   $("#currentDay").text(today.format("MMM D, YYYY"));
 
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
-  renderText();
+ 
 
-  var text = $('#text');
+  var userText = $('#text');
+  var saveText = $('#hour-x');
   var saveBtn = $('#save-text');
-
+  
+  renderText();
   
   function renderText(){
     var text = localStorage.getItem('text');
 
-    text.textContent = text;
+    if (!text){
+      return;
+    }
+
+    saveText.textContent = userText;
   }
 
   // TODO: Add a listener for click events on the save button. This code should
@@ -30,12 +36,12 @@ $(function () {
   // useful when saving the description in local storage?
 
   
-  saveBtn.addEventListener('click', function(event) {
+  saveBtn.addEventListener2('click', function(event) {
     event.preventDefault();
 
-    var text = document.querySelector('#text').ariaValueMax;
+    var text = document.querySelector('#text').value;
 
-    if (text === "") {
+    if (text === '') {
       alert('please enter event');
     } else {
       localStorage.setItem('text', text); 
@@ -55,12 +61,15 @@ $(function () {
   // current hour in 24-hour time?
   //
   
-  
 
+  function get Time(){
     
-
-
+      if (saveText === today){
+         
+      }
+  }
   
+
   
 
 });
