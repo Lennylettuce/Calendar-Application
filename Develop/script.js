@@ -4,29 +4,19 @@
 $(function () {
   
   // TODO: Add code to display the current date in the header of the page.(DONE)
-  var today = dayjs().hour(23);
-  $("#currentDay").text(today.format("MMM D, YYYY"));
+  var today = dayjs();
+  $('#current-day').text(today.format('MMM D, YYYY'));
 
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
  
+  //for each [i] in div hour-9[0] set and get to localstorage
 
-  var userText = $('#text');
-  var saveText = $('#hour-x');
-  var saveBtn = $('#save-text');
   
-  renderText();
   
-  function renderText(){
-    var text = localStorage.getItem('text');
-
-    if (!text){
-      return;
-    }
-
-    saveText.textContent = userText;
-  }
+  
+  
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -36,18 +26,7 @@ $(function () {
   // useful when saving the description in local storage?
 
   
-  saveBtn.addEventListener2('click', function(event) {
-    event.preventDefault();
-
-    var text = document.querySelector('#text').value;
-
-    if (text === '') {
-      alert('please enter event');
-    } else {
-      localStorage.setItem('text', text); 
-      renderText();
-    }
-    });
+  
 
 
  
@@ -62,17 +41,50 @@ $(function () {
   //
   
 
-  function get Time(){
-    
-      if (saveText === today){
-         
-      }
-  }
+  
   
 
-  
+   
 
 });
+
+  
+
+var userInput = document.querySelector("#text");
+
+var saveButton = document.querySelector("#save-text");
+
+var saveText = document.querySelector("#hour-9");
+
+
+
+renderUserText();
+
+
+function renderUserText() {
+  var text = localStorage.getItem("text");
+
+  if (!text) {
+    return;
+  }
+
+  userInput.textContent = text;
+}
+
+signUpButton.addEventListener("click", function(event) {
+  event.preventDefault();
+
+  var text = document.querySelector("#text").value;
+
+  if (text === "") {
+    alert('please enter an event');
+  } else {
+    
+    localStorage.setItem("text", text);
+    renderUserText();
+  }
+}); 
+
 
 //GIVEN I am using a daily planner to create a schedule
 //WHEN I open the planner
