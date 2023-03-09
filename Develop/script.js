@@ -1,10 +1,7 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-//$(function () {
 
-
-//});
 //event handler applied before html rendered
 //document ready function (event handlers/selectors from dom)
 //
@@ -34,11 +31,11 @@
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
 
-var userInput = document.querySelector("#text");
+var userInput = $(".description");
 
-var saveButton = document.querySelector("#save-text");
+var saveButton = $("#save-text");
 
-var saveText = document.querySelector("#hour-9");
+var saveText = $(".time-block");
 
 
 //ok this works, had to comment out other function..
@@ -47,30 +44,36 @@ var saveText = document.querySelector("#hour-9");
 //row timeblock in common with all hour- lol!
 //queryselectorall gives array of all timeblocks then itterate throught that
 
-renderText();
 
-function renderText(){
-  var text = localStorage.getItem("text");
-
-  if (!text){
-    return;
-  }
-
-  userInput.textContent = text;
+function renderText(event){
+  var text = $(event.currentTarget).parent('.time-block');
+  //switch to class see if that works
+  var save = text.find('.description');
+  var saved = save.val();
+  localStorage.setItem('saved', saved);
+  saveText.textContent = saved;
+  localStorage.getItem('saved');
 }
 
-saveButton.addEventListener("click", function(event){
-  event.preventDefault();
+$(document).ready(function () {
 
-  var text = document.querySelector("#text").value;
+    saveButton.on('click', renderText);
 
-  if (text === ""){
-    alert("please enter event");
-  } else {
-    localStorage.setItem("text", text);
-    renderText();
-  }
+
+    var currentHour = dayjs().format('H');
+
+    for(var i = 9; i < 22; i++){
+      if (currentHour > i) {
+        $('#hour-' + i).removeClass('future present').addClass('past');
+      } else if (currentHour == i) {
+        $('#hour-' + i).removeClass('future past').addClass('present');
+      }else if (currentHour < i) {
+        $('#hour-' + i).removeClass('present past').addClass('future');
+      }
+    }
+
 });
+
 
 //docready like init function tells brower to fire these at specific time when page loads
 
@@ -81,7 +84,7 @@ saveButton.addEventListener("click", function(event){
 //WHEN I scroll down
 //THEN I am presented with time blocks for standard business hours(DONE)
 //WHEN I view the time blocks for that day
-//THEN each time block is color-coded to indicate whether it is in the past, present, or future()
+//THEN each time block is color-coded to indicate whether it is in the past, present, or future(DONE)
 //WHEN I click into a time block
 //THEN I can enter an event(DONE)
 //WHEN I click the save button for that time block
