@@ -5,6 +5,9 @@
 
 
 //});
+//event handler applied before html rendered
+//document ready function (event handlers/selectors from dom)
+//
 
 // TODO: Add code to display the current date in the header of the page.(DONE)
 
@@ -41,6 +44,8 @@ var saveText = document.querySelector("#hour-9");
 //ok this works, had to comment out other function..
 //next step is to get this to work for each of the time-block divs
 //because this code only has the hour-9 one defined
+//row timeblock in common with all hour- lol!
+//queryselectorall gives array of all timeblocks then itterate throught that
 
 renderText();
 
@@ -67,7 +72,7 @@ saveButton.addEventListener("click", function(event){
   }
 });
 
-
+//docready like init function tells brower to fire these at specific time when page loads
 
 
 //GIVEN I am using a daily planner to create a schedule
