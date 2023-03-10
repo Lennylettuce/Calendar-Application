@@ -4,7 +4,7 @@
 
 //event handler applied before html rendered
 //document ready function (event handlers/selectors from dom)
-//
+
 
 // TODO: Add code to display the current date in the header of the page.(DONE)
 
@@ -13,16 +13,14 @@
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
+  // current hour in 24-hour time? (DONE)
+  
 
  var today = dayjs();
   $('#current-day').text(today.format('MMM D, YYYY'));
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
- 
-  //for each [i] in div hour-9[0] set and get to localstorage
+  // attribute of each time-block be used to do this? 
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -31,34 +29,64 @@
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
 
-var userInput = $(".description");
+  //ok this works, had to comment out other function..
+  //next step is to get this to work for each of the time-block divs
+  //because this code only has the hour-9 one defined
+  //row timeblock in common with all hour- lol!
+  //queryselectorall gives array of all timeblocks then itterate throught that
+      //select via partent in event target
+      //get every timeblock write everything all at once(save as one big array)
+      //now get val()
+      //look for sibling .find(?)
+      //jquery method take javascript element into jquery object
+      //create object for when saving each timeblock
+      //
+      var userInput = $(".description");
+      var saveButton = $(".saveBtn");
+      var saveText = $(".time-block");
+      var eventText = [];
 
-var saveButton = $("#save-text");
+    function saveText(event){
+      event.preventDefault();
+      var textArea = $(event.currentTarget).siblings('.description');
+      var textVal = textArea.val();
+   
+     
+      var timeBlock = {
+        value: textVal,
+        id: textArea.attr("id"),
+      };
+      
 
-var saveText = $(".time-block");
+      eventText.push(timeBlock);
+      //now in eventText get text div id
+      localStorage.setItem('text', JSON.stringify(eventText));
+    
+    }
 
+    function renderText(){
+      //look at event text array, loop and select each id 
+      for (var i = 0; i < eventText.length; i++){
+        //take current thing and get id
+        var textInput = $(eventText[i].id);
+        textInput.val(eventText[i].value);
+      }
+    }
+    
+  //write code to keep track of current text/localstorage
+//THANK YOU BRETT!
 
-//ok this works, had to comment out other function..
-//next step is to get this to work for each of the time-block divs
-//because this code only has the hour-9 one defined
-//row timeblock in common with all hour- lol!
-//queryselectorall gives array of all timeblocks then itterate throught that
-
-
-function renderText(event){
-  var text = $(event.currentTarget).parent('.time-block');
-  //switch to class see if that works
-  var save = text.find('.description');
-  var saved = save.val();
-  localStorage.setItem('saved', saved);
-  saveText.textContent = saved;
-  localStorage.getItem('saved');
-}
 
 $(document).ready(function () {
 
-    saveButton.on('click', renderText);
+  saveButton.on('click', saveText);
 
+    if (localStorage.getItem('text')){
+      eventText = JSON.parse(localStorage.getItem('text'));
+      renderText();
+    }
+      
+      
 
     var currentHour = dayjs().format('H');
 
@@ -74,7 +102,10 @@ $(document).ready(function () {
 
 });
 
-
+//page loads, get items from local storage
+  //add check if val - dont write if undefined
+    //get text out of local storage getItem here 
+    //set equal to eventText
 //docready like init function tells brower to fire these at specific time when page loads
 
 
@@ -90,4 +121,4 @@ $(document).ready(function () {
 //WHEN I click the save button for that time block
 //THEN the text for that event is saved in local storage(working on)
 //WHEN I refresh the page
-//THEN the saved events persist ()
+//THEN the saved events persist (almost there!)
