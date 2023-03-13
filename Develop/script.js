@@ -1,88 +1,34 @@
  var today = dayjs();
   $('#current-day').text(today.format('MMM D, YYYY'));
+
+//used this jquery object to target DOM elements for local storage
+
+  var saveBtn = $(".saveBtn");
   
-      //
-      var userInput = $(".description");
-      var saveButton = $(".saveBtn");
-      var saveText = $(".time-block");
-      var eventText = [];
+  saveBtn.on("click", function(){
+    var div = $(this).siblings(".hours").text();
+    var text = $(this).siblings(".description").val();
 
-    function saveText(event){
-      event.preventDefault();
-      var textArea = $(event.currentTarget).siblings('.description');
-      var textVal = textArea.val();
-   
-     
-      var timeBlock = {
-        value: textVal,
-        id: textArea.attr("id"),
-      };
-       
+    localStorage.setItem(div, text);
+  });
 
-      eventText.push(timeBlock);
-      //now in eventText get text div id
-      localStorage.setItem('text', JSON.stringify(eventText));
-    
-    }
+  function saveText(){
+    $(".hours").each(function(){
+      var hour = $(this).text();
+      var savedText = localStorage.getItem(hour);
 
-    function renderText(){
-      //look at event text array, loop and select each id 
-      for (var i = 0; i < eventText.length; i++){
-        //take current thing and get id
-        var textInput = $(eventText[i].id);
-        textInput.val(eventText[i].value);
+      if (savedText !== null) {
+        $(this).siblings(".description").val(savedText);
       }
-    }
-    
-  //write code to keep track of current text/localstorage
-//THANK YOU BRETT!
+    });
+  }
 
-//work code below, maybe do a for loop for ea like he did above.........
-
-//renderLast();
-
-
-//function renderLast() {
-  //var text = localStorage.getItem("text");
-
-  //if (!text) {
-    //return;
-  //}
-
-  //userEmailSpan.textContent = email;
-//}
-
-//signUpButton.addEventListener("click", function(event) {
-  //event.preventDefault();
-
-  //var email = document.querySelector("#email").value;
-  //var password = document.querySelector("#password").value;
-
-  //if (email === "") {
-    //displayMessage("error", "Email cannot be blank");
-  //} else if (password === "") {
-    //displayMessage("error", "Password cannot be blank");
-  //} else {
-    //displayMessage("success", "Registered successfully");
-
-    //localStorage.setItem("email", email);
-    //localStorage.setItem("password", password);
-    //renderLast();
-  //}
-//});
-
+saveText();
 
 $(document).ready(function () {
 
-  saveButton.on('click', saveText);
-
-    if (localStorage.getItem('text')){
-      eventText = JSON.parse(localStorage.getItem('text'));
-      renderText();
-    }
-      
-      
-
+  
+       
     var currentHour = dayjs().format('H');
 
     for(var i = 9; i < 22; i++){
@@ -96,6 +42,24 @@ $(document).ready(function () {
     }
 
 });
+   
+
+//GIVEN I am using a daily planner to create a schedule
+//WHEN I open the planner
+//THEN the current day is displayed at the top of the calendar(DONE)
+//WHEN I scroll down
+//THEN I am presented with time blocks for standard business hours(DONE)
+//WHEN I view the time blocks for that day
+//THEN each time block is color-coded to indicate whether it is in the past, present, or future(DONE)
+//WHEN I click into a time block
+//THEN I can enter an event(DONE)
+//WHEN I click the save button for that time block
+//THEN the text for that event is saved in local storage(DONE)
+//WHEN I refresh the page
+//THEN the saved events persist (DONE)
+    
+
+  //extra comments..
 
 // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
@@ -144,17 +108,3 @@ $(document).ready(function () {
     //set equal to eventText
 //docready like init function tells brower to fire these at specific time when page loads
 
-
-//GIVEN I am using a daily planner to create a schedule
-//WHEN I open the planner
-//THEN the current day is displayed at the top of the calendar(DONE)
-//WHEN I scroll down
-//THEN I am presented with time blocks for standard business hours(DONE)
-//WHEN I view the time blocks for that day
-//THEN each time block is color-coded to indicate whether it is in the past, present, or future(DONE)
-//WHEN I click into a time block
-//THEN I can enter an event(DONE)
-//WHEN I click the save button for that time block
-//THEN the text for that event is saved in local storage(working on)
-//WHEN I refresh the page
-//THEN the saved events persist (almost there!)
