@@ -1,45 +1,6 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
-//event handler applied before html rendered
-//document ready function (event handlers/selectors from dom)
-
-
-// TODO: Add code to display the current date in the header of the page.(DONE)
-
-  
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time? (DONE)
-  
-
  var today = dayjs();
   $('#current-day').text(today.format('MMM D, YYYY'));
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this? 
-
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-
-  //ok this works, had to comment out other function..
-  //next step is to get this to work for each of the time-block divs
-  //because this code only has the hour-9 one defined
-  //row timeblock in common with all hour- lol!
-  //queryselectorall gives array of all timeblocks then itterate throught that
-      //select via partent in event target
-      //get every timeblock write everything all at once(save as one big array)
-      //now get val()
-      //look for sibling .find(?)
-      //jquery method take javascript element into jquery object
-      //create object for when saving each timeblock
+  
       //
       var userInput = $(".description");
       var saveButton = $(".saveBtn");
@@ -56,7 +17,7 @@
         value: textVal,
         id: textArea.attr("id"),
       };
-      
+       
 
       eventText.push(timeBlock);
       //now in eventText get text div id
@@ -75,6 +36,40 @@
     
   //write code to keep track of current text/localstorage
 //THANK YOU BRETT!
+
+//work code below, maybe do a for loop for ea like he did above.........
+
+//renderLast();
+
+
+//function renderLast() {
+  //var text = localStorage.getItem("text");
+
+  //if (!text) {
+    //return;
+  //}
+
+  //userEmailSpan.textContent = email;
+//}
+
+//signUpButton.addEventListener("click", function(event) {
+  //event.preventDefault();
+
+  //var email = document.querySelector("#email").value;
+  //var password = document.querySelector("#password").value;
+
+  //if (email === "") {
+    //displayMessage("error", "Email cannot be blank");
+  //} else if (password === "") {
+    //displayMessage("error", "Password cannot be blank");
+  //} else {
+    //displayMessage("success", "Registered successfully");
+
+    //localStorage.setItem("email", email);
+    //localStorage.setItem("password", password);
+    //renderLast();
+  //}
+//});
 
 
 $(document).ready(function () {
@@ -101,6 +96,47 @@ $(document).ready(function () {
     }
 
 });
+
+// TODO: Add code to get any user input that was saved in localStorage and set
+  // the values of the corresponding textarea elements. HINT: How can the id
+  // attribute of each time-block be used to do this? 
+
+  // TODO: Add a listener for click events on the save button. This code should
+  // use the id in the containing time-block as a key to save the user input in
+  // local storage. HINT: What does `this` reference in the click listener
+  // function? How can DOM traversal be used to get the "hour-x" id of the
+  // time-block containing the button that was clicked? How might the id be
+  // useful when saving the description in local storage?
+
+  //ok this works, had to comment out other function..
+  //next step is to get this to work for each of the time-block divs
+  //because this code only has the hour-9 one defined
+  //row timeblock in common with all hour- lol!
+  //queryselectorall gives array of all timeblocks then itterate throught that
+      //select via partent in event target
+      //get every timeblock write everything all at once(save as one big array)
+      //now get val()
+      //look for sibling .find(?)
+      //jquery method take javascript element into jquery object
+      //create object for when saving each timeblock
+
+// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
+// the code isn't run until the browser has finished rendering all the elements
+// in the html.
+
+//event handler applied before html rendered
+//document ready function (event handlers/selectors from dom)
+
+
+// TODO: Add code to display the current date in the header of the page.(DONE)
+
+  
+  // TODO: Add code to apply the past, present, or future class to each time
+  // block by comparing the id to the current hour. HINTS: How can the id
+  // attribute of each time-block be used to conditionally add or remove the
+  // past, present, and future classes? How can Day.js be used to get the
+  // current hour in 24-hour time? (DONE)
+  
 
 //page loads, get items from local storage
   //add check if val - dont write if undefined
